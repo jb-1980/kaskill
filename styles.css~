@@ -1,0 +1,47 @@
+.kaskill-button-link{
+  color: white;
+  font-family: 'Times New Roman',Times,serif;
+  text-decoration:none;
+  display: inline-block;
+  margin: auto;
+  width: 250px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 14pt;
+  background-color: #80ac07;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: thin solid white;
+  box-shadow: 4px 4px 14px #000;
+  -moz-box-shadow: 4px 4px 14px #000;
+  -webkit-box-shadow: 4px 4px 14px #000;
+  background-image: linear-gradient(to bottom, #8aba08, #719807);
+  background-repeat: repeat-x;"
+}
+
+.kaskill-button-link:hover {
+  text-decoration: none;
+  color:white;
+}
+
+.kaskill-button-link:link {
+  text-decoration: none;
+  color:white;
+}
+
+.kaskill-button-link:visited {
+  text-decoration: none;
+  color:white;
+}
+
+.kaskill-button-link:active {
+  text-decoration: none;
+  color:white;
+}
+
+.kaskills-btn{
+  background-color:#5cb85c;
+  color:white;
+}
