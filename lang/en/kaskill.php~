@@ -43,4 +43,5 @@ $string['openskill'] = "Open skill in new tab";
 $string['pluginadministration'] = 'kaskill administration';
 $string['pluginname'] = 'Khan Academy skill';
 $string['skilllink'] = 'Take me to practice this skill';
+$string['updateskill'] = 'Update Khan Academy skill list';
 $string['videointro'] = "These videos will prepare you to solve problems similar to the one displayed above. When you are ready, please click the button below to practice this skill on Khan Academy.";

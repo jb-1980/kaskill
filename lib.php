@@ -392,5 +392,5 @@ function kaskill_update_skills(){
     fclose($json_file);
     print_object($skills);
 }
-global $PAGE;
-$PAGE->requires->jquery_plugin('kaskill-jquerymodule', 'mod_kaskill');
+#global $PAGE;
+#$PAGE->requires->jquery_plugin('kaskill-jquerymodule', 'mod_kaskill');

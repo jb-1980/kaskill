@@ -28,9 +28,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_kaskill';
-$plugin->version = 2015021900;
+$plugin->version = 2015052105;
 $plugin->release = 'v1.0';
 $plugin->requires = 2014051200;
 $plugin->maturity = MATURITY_ALPHA;
-$plugin->cron = 0;
+//$plugin->cron = 0;
 $plugin->dependencies = array();
