@@ -63,10 +63,21 @@ $output = $PAGE->get_renderer('mod_kaskill');
 
 // Output starts here.
 echo $output->header();
+$skill_url = 'http://www.khanacademy.org/api/v1/exercises/'.$kaskill->kaslug;
+$video_url = $skill_url.'/videos';
+$skill_data = json_decode(file_get_contents($skill_url));
+$video_data = json_decode(file_get_contents($video_url));
+$videos = array();
+foreach ($video_data as $key => $video) {
+  $videos[] = "http://www.khanacademy.org/embed_video?v=".$video->youtube_id;
+}
+$renderable_data = new stdClass();
+$renderable_data->url      = $skill_data->ka_url;
+$renderable_data->title    = $skill_data->display_name;
+$renderable_data->idnumber = $skill_data->name;
+$renderable_data->imageurl = $skill_data->image_url;
+$renderable_data->videos   = $videos;
 
-$skill_data = json_decode(file_get_contents($CFG->dirroot.'/mod/kaskill/skills.json'));
-$name = $kaskill->kaslug;
-
-echo $output->heading($skill_data->$name->title);
-echo $output->render_skill_view_page($skill_data->$name);
+echo $output->heading($renderable_data->title);
+echo $output->render_skill_view_page($renderable_data);
 echo $output->footer();

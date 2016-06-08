@@ -21,7 +21,7 @@
  * visit: http://docs.moodle.org/en/Development:lib/formslib.php
  *
  * @package    mod_kaskill
- * @copyright  2015 Joseph Gilgen
+ * @copyright  2015 Joseph Gilgen <gilgenlabs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -43,15 +43,20 @@ class mod_kaskill_mod_form extends moodleform_mod {
      * Defines forms elements
      */
     public function definition() {
-        global $CFG,$DB;
-        
+        global $CFG,$DB,$PAGE;
+
+        $PAGE->requires->jquery();
+        $PAGE->requires->js('/mod/kaskill/scripts/chosen.jquery.min.js');
+        $PAGE->requires->js('/mod/kaskill/scripts/script.js');
         $mform = $this->_form;
-        
-        
+
+
         // Adding the skill selector
-        $skill_data = json_decode(file_get_contents($CFG->dirroot.'/mod/kaskill/skills.json'));
+        $skills_url = 'https://www.khanacademy.org/api/internal/exercises/math_topics_and_exercises';
+        $json = file_get_contents($skills_url);
+        $skill_data = json_decode($json)->exercises;
         foreach($skill_data as $skill=>$data){
-            $skill_select[$skill]=$data->title;
+            $skill_select[$data->name.'~'.$data->display_name]=$data->display_name;
         }
         asort($skill_select);
         if($update = optional_param('update', 0, PARAM_INT)){
@@ -62,9 +67,15 @@ class mod_kaskill_mod_form extends moodleform_mod {
         } else{
             $name = '';
         }
-        $mform->addElement('select', 'skillname', get_string('kaskillname', 'kaskill'),$skill_select ,array('height'=>'64px','overflow'=>'hidden','width'=>'240px','data-placeholder'=>$name));
+        $mform->addElement('select',
+            'skillname',
+            get_string('kaskillname', 'kaskill'),
+            $skill_select,
+            array('height'=>'64px','overflow'=>'hidden','width'=>'240px',
+            'data-placeholder'=>$name)
+        );
         $mform->addHelpButton('skillname', 'kaskillname', 'kaskill');
-        
+
         // Add standard grading elements.
         $this->standard_grading_coursemodule_elements();
 
@@ -73,7 +84,7 @@ class mod_kaskill_mod_form extends moodleform_mod {
 
         // Add standard buttons, common to all modules.
         $this->add_action_buttons();
-        
-        $mform->addElement('html','<script>$("#id_skillname").chosen()</script>');
+
+        //$mform->addElement('html','<script>window.onload($("#id_skillname").chosen())</script>');
     }
 }

@@ -75,13 +75,11 @@ function kaskill_supports($feature) {
  */
 function kaskill_add_instance(stdClass $kaskill, mod_kaskill_mod_form $mform = null) {
     global $CFG,$DB;
-    $skill_data = json_decode(file_get_contents($CFG->dirroot.'/mod/kaskill/skills.json'));
 
-    $slug = $kaskill->skillname;
-    $kaskill->kaslug = $slug;
+    $name_title = explode('~',$kaskill->skillname);
+    $kaskill->name = $name_title[1];
+    $kaskill->kaslug = $name_title[0];
     $kaskill->timecreated = time();
-    $kaskill->name = $skill_data->$slug->title;
-
 
     $kaskill->id = $DB->insert_record('kaskill', $kaskill);
 
@@ -103,13 +101,15 @@ function kaskill_add_instance(stdClass $kaskill, mod_kaskill_mod_form $mform = n
  */
 function kaskill_update_instance(stdClass $kaskill, mod_kaskill_mod_form $mform = null) {
     global $CFG,$DB;
-    $kaskill->timemodified = time();
-    $skill_data = json_decode(file_get_contents($CFG->dirroot.'/mod/kaskill/skills.json'));
 
-    $slug = $kaskill->skillname;
-    $kaskill->kaslug = $slug;
-    $kaskill->name = $skill_data->$slug->title;
+    //$skill_data = json_decode(file_get_contents($CFG->dirroot.'/mod/kaskill/skills.json'));
+
+    $name_title = explode('~',$kaskill->skillname);
     $kaskill->id = $kaskill->instance;
+    $kaskill->name = $name_title[1];
+    $kaskill->kaslug = $name_title[0];
+    $kaskill->timemodified = time();
+
 
     $result = $DB->update_record('kaskill', $kaskill);
 
@@ -376,7 +376,7 @@ function kaskill_update_skills(){
         foreach($video_data as $video_datum){
             $video_urls[]="http://www.khanacademy.org/embed_video?v={$video_datum->youtube_id}";
         }
-        
+
         //parse json data to keep just essential skill data
         $skills[$datum->name]=array(
             'url'=>$datum->ka_url,
@@ -385,7 +385,7 @@ function kaskill_update_skills(){
             'imageurl'=>$datum->image_url,
             'videos'=>$video_urls
         );
-        
+
     }
     $json_file = fopen('skills.json','w');
     fwrite($json_file,json_encode($skills));

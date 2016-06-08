@@ -21,7 +21,7 @@
  * lib.php/modulename_install() post installation hook and partially defaults.php.
  *
  * @package    mod_kaskill
- * @copyright  2015 Joseph Gilgen <your@email.adress>
+ * @copyright  2015 Joseph Gilgen <gilgenlabs@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

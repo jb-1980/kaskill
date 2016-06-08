@@ -1,0 +1,1 @@
+$("#id_skillname").chosen();
